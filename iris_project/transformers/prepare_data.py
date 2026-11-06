@@ -10,7 +10,7 @@ def transform(df):
 
     train_idx, test_idx = train_test_split(
         df.index,
-        test_size=0.2,
+        test_size=0.3,
         random_state=42,
         stratify=df["target"]
     )
