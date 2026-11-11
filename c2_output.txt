@@ -1,0 +1,295 @@
+=== max_depth=1 ===
+DBT library not installed.
+--------------------------------------------------------------
+1/1 tests passed.
+--------------------------------------------------------------
+1/1 tests passed.
+max_depth=1 test_accuracy=0.6667
+==============================================================
+FAIL: test_accuracy (block: train_model)
+--------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\itsme\Desktop\freshcart-pipelines\.venv\Lib\site-packages\mage_ai\data_preparation\executors\pipeline_executor.py", line 82, in execute
+    loop = asyncio.get_running_loop()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\itsme\Desktop\freshcart-pipelines\.venv\Lib\site-packages\mage_ai\data_preparation\models\block\__init__.py", line 3350, in run_tests
+    test_function(*outputs)
+  File "<string>", line 51, in test_accuracy
+AssertionError: accuracy 0.6667 below 0.9
+
+--------------------------------------------------------------
+0/1 tests passed.
+WARNING:traitlets:Message signing is disabled.  This is insecure and not recommended!
+WARNING:traitlets:Message signing is disabled.  This is insecure and not recommended!
+INFO:mage_ai.data_preparation.executors.pipeline_executor:[PipelineExecutor] No running loop, using asyncio.run
++--------------------- Traceback (most recent call last) ---------------------+
+| C:\Users\itsme\Desktop\freshcart-pipelines\.venv\Lib\site-packages\mage_ai\ |
+| data_preparation\executors\pipeline_executor.py:82 in execute               |
+|                                                                             |
+|    79                 )                                                     |
+|    80         # Execute the task based on current context                   |
+|    81         try:                                                          |
+| >  82             loop = asyncio.get_running_loop()                         |
+|    83             logger.info(f'[PipelineExecutor] Found running loop {loop |
+|    84             # We're in an async context, use create_task              |
+|    85             task = asyncio.create_task(_execute_task())               |
++-----------------------------------------------------------------------------+
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
++--------------------- Traceback (most recent call last) ---------------------+
+| C:\Users\itsme\Desktop\freshcart-pipelines\.venv\Lib\site-packages\mage_ai\ |
+| cli\main.py:252 in run                                                      |
+|                                                                             |
+|   249                 pipeline,                                             |
+|   250                 execution_partition=execution_partition,              |
+|   251                 executor_type=executor_type,                          |
+| > 252             ).execute(                                                |
+|   253                 analyze_outputs=False,                                |
+|   254                 global_vars=global_vars,                              |
+|   255                 pipeline_run_id=pipeline_run_id,                      |
+|                                                                             |
+| C:\Users\itsme\Desktop\freshcart-pipelines\.venv\Lib\site-packages\mage_ai\ |
+| data_preparation\executors\pipeline_executor.py:90 in execute               |
+|                                                                             |
+|    87         except RuntimeError:                                          |
+|    88             # No running loop, safe to use asyncio.run                |
+|    89             logger.info('[PipelineExecutor] No running loop, using as |
+| >  90             asyncio.run(_execute_task())                              |
+|    91                                                                       |
+|    92         self.logger_manager.output_logs_to_destination()              |
+|    93                                                                       |
+|                                                                             |
+| C:\Users\itsme\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners. |
+| py:190 in run                                                               |
+|                                                                             |
+|   187             "asyncio.run() cannot be called from a running event loop |
+|   188                                                                       |
+|   189     with Runner(debug=debug) as runner:                               |
+| > 190         return runner.run(main)                                       |
+|   191                                                                       |
+|   192                                                                       |
+|   193 def _cancel_all_tasks(loop):                                          |
+|                                                                             |
+| C:\Users\itsme\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners. |
+| py:118 in run                                                               |
+|                                                                             |
+|   115                                                                       |
+|   116         self._interrupt_count = 0                                     |
+|   117         try:                                                          |
+| > 118             return self._loop.run_until_complete(task)                |
+|   119         except exceptions.CancelledError:                             |
+|   120             if self._interrupt_count > 0:                             |
+|   121                 uncancel = getattr(task, "uncancel", None)            |
+|                                                                             |
+| C:\Users\itsme\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_eve |
+| nts.py:654 in run_until_complete                                            |
+|                                                                             |
+|    651         if not future.done():                                        |
+|    652             raise RuntimeError('Event loop stopped before Future com |
+|    653                                                                      |
+| >  654         return future.result()                                       |
+|    655                                                                      |
+|    656     def stop(self):                                                  |
+|    657         """Stop running the event loop.                              |
+|                                                                             |
+| C:\Users\itsme\Desktop\freshcart-pipelines\.venv\Lib\site-packages\mage_ai\ |
+| data_preparation\executors\pipeline_executor.py:63 in _execute_task         |
+|                                                                             |
+|    60         async def _execute_task():                                    |
+|    61             if pipeline_run_id is None:                               |
+|    62                 # Execute the pipeline without block runs             |
+| >  63                 await self.pipeline.execute(                          |
+|    64                     analyze_outputs=analyze_outputs,                  |
+|    65                     global_vars=global_vars,                          |
+|    66                     run_sensors=run_sensors,                          |
+|                                                                             |
+| C:\Users\itsme\Desktop\freshcart-pipelines\.venv\Lib\site-packages\mage_ai\ |
+| data_preparation\models\pipeline.py:787 in execute                          |
+|                                                                             |
+|    784                 update_status=update_status,                         |
+|    785             )                                                        |
+|    786         )                                                            |
+| >  787         await execution_task                                         |
+|    788                                                                      |
+|    789     def execute_sync(                                                |
+|    790         self,                                                        |
+|                                                                             |
+| C:\Users\itsme\Desktop\freshcart-pipelines\.venv\Lib\site-packages\mage_ai\ |
+| data_preparation\models\block\__init__.py:254 in run_blocks                 |
+|                                                                             |
+|    251         if skip:                                                     |
+|    252             continue                                                 |
+|    253         upstream_tasks = [tasks[u.uuid] for u in block.upstream_bloc |
+| >  254         await asyncio.gather(*upstream_tasks)                        |
+|    255         block_task = create_block_task(block)                        |
+|    256         tasks[block.uuid] = block_task                               |
+|    257         for downstream_block in block.downstream_blocks:             |
+|                                                                             |
+| C:\Users\itsme\Desktop\freshcart-pipelines\.venv\Lib\site-packages\mage_ai\ |
+| data_preparation\models\block\__init__.py:215 in execute_and_run_tests      |
+|                                                                             |
+|    212                 )                                                    |
+|    213                                                                      |
+|    214                 if run_tests:                                        |
+| >  215                     block.run_tests(                                 |
+|    216                         build_block_output_stdout=build_block_output |
+|    217                         global_vars=global_vars,                     |
+|    218                         update_tests=False,                          |
+|                                                                             |
+| C:\Users\itsme\Desktop\freshcart-pipelines\.venv\Lib\site-packages\mage_ai\ |
+| data_preparation\models\block\__init__.py:3385 in run_tests                 |
+|                                                                             |
+|   3382                     print(message)                                   |
+|   3383                                                                      |
+|   3384                 if tests_passed != len(test_functions):              |
+| > 3385                     raise Exception(f'Failed to pass tests for block |
+|   3386                                                                      |
+|   3387             handle_run_tests(                                        |
+|   3388                 self,                                                |
++-----------------------------------------------------------------------------+
+Exception: Failed to pass tests for block train_model
+CSV created: False
+exit code: 1
+=== max_depth=2 ===
+DBT library not installed.
+--------------------------------------------------------------
+1/1 tests passed.
+--------------------------------------------------------------
+1/1 tests passed.
+max_depth=2 test_accuracy=0.9333
+--------------------------------------------------------------
+1/1 tests passed.
+Confusion matrix
+    0  1  2
+0  10  0  0
+1   0  9  1
+2   0  1  9
+Metrics
+       label  precision   recall  f1-score   support
+           0   1.000000 1.000000  1.000000 10.000000
+           1   0.900000 0.900000  0.900000 10.000000
+           2   0.900000 0.900000  0.900000 10.000000
+    accuracy   0.933333 0.933333  0.933333  0.933333
+   macro avg   0.933333 0.933333  0.933333 30.000000
+weighted avg   0.933333 0.933333  0.933333 30.000000
+--------------------------------------------------------------
+1/1 tests passed.
+--------------------------------------------------------------
+1/1 tests passed.
+--------------------------------------------------------------
+1/1 tests passed.
+Pipeline run completed.
+WARNING:traitlets:Message signing is disabled.  This is insecure and not recommended!
+WARNING:traitlets:Message signing is disabled.  This is insecure and not recommended!
+INFO:mage_ai.data_preparation.executors.pipeline_executor:[PipelineExecutor] No running loop, using asyncio.run
+CSV created: True
+exit code: 0
+=== max_depth=3 ===
+DBT library not installed.
+--------------------------------------------------------------
+1/1 tests passed.
+--------------------------------------------------------------
+1/1 tests passed.
+max_depth=3 test_accuracy=0.9667
+--------------------------------------------------------------
+1/1 tests passed.
+Confusion matrix
+    0  1   2
+0  10  0   0
+1   0  9   1
+2   0  0  10
+Metrics
+       label  precision   recall  f1-score   support
+           0   1.000000 1.000000  1.000000 10.000000
+           1   1.000000 0.900000  0.947368 10.000000
+           2   0.909091 1.000000  0.952381 10.000000
+    accuracy   0.966667 0.966667  0.966667  0.966667
+   macro avg   0.969697 0.966667  0.966583 30.000000
+weighted avg   0.969697 0.966667  0.966583 30.000000
+--------------------------------------------------------------
+1/1 tests passed.
+--------------------------------------------------------------
+1/1 tests passed.
+--------------------------------------------------------------
+1/1 tests passed.
+Pipeline run completed.
+WARNING:traitlets:Message signing is disabled.  This is insecure and not recommended!
+WARNING:traitlets:Message signing is disabled.  This is insecure and not recommended!
+INFO:mage_ai.data_preparation.executors.pipeline_executor:[PipelineExecutor] No running loop, using asyncio.run
+CSV created: True
+exit code: 0
+=== max_depth=4 ===
+DBT library not installed.
+--------------------------------------------------------------
+1/1 tests passed.
+--------------------------------------------------------------
+1/1 tests passed.
+max_depth=4 test_accuracy=0.9333
+--------------------------------------------------------------
+1/1 tests passed.
+Confusion matrix
+    0  1  2
+0  10  0  0
+1   0  9  1
+2   0  1  9
+Metrics
+       label  precision   recall  f1-score   support
+           0   1.000000 1.000000  1.000000 10.000000
+           1   0.900000 0.900000  0.900000 10.000000
+           2   0.900000 0.900000  0.900000 10.000000
+    accuracy   0.933333 0.933333  0.933333  0.933333
+   macro avg   0.933333 0.933333  0.933333 30.000000
+weighted avg   0.933333 0.933333  0.933333 30.000000
+--------------------------------------------------------------
+1/1 tests passed.
+--------------------------------------------------------------
+1/1 tests passed.
+--------------------------------------------------------------
+1/1 tests passed.
+Pipeline run completed.
+WARNING:traitlets:Message signing is disabled.  This is insecure and not recommended!
+WARNING:traitlets:Message signing is disabled.  This is insecure and not recommended!
+INFO:mage_ai.data_preparation.executors.pipeline_executor:[PipelineExecutor] No running loop, using asyncio.run
+CSV created: True
+exit code: 0
+=== max_depth=5 ===
+DBT library not installed.
+--------------------------------------------------------------
+1/1 tests passed.
+--------------------------------------------------------------
+1/1 tests passed.
+max_depth=5 test_accuracy=0.9333
+--------------------------------------------------------------
+1/1 tests passed.
+Confusion matrix
+    0  1  2
+0  10  0  0
+1   0  9  1
+2   0  1  9
+Metrics
+       label  precision   recall  f1-score   support
+           0   1.000000 1.000000  1.000000 10.000000
+           1   0.900000 0.900000  0.900000 10.000000
+           2   0.900000 0.900000  0.900000 10.000000
+    accuracy   0.933333 0.933333  0.933333  0.933333
+   macro avg   0.933333 0.933333  0.933333 30.000000
+weighted avg   0.933333 0.933333  0.933333 30.000000
+--------------------------------------------------------------
+1/1 tests passed.
+--------------------------------------------------------------
+1/1 tests passed.
+--------------------------------------------------------------
+1/1 tests passed.
+Pipeline run completed.
+WARNING:traitlets:Message signing is disabled.  This is insecure and not recommended!
+WARNING:traitlets:Message signing is disabled.  This is insecure and not recommended!
+INFO:mage_ai.data_preparation.executors.pipeline_executor:[PipelineExecutor] No running loop, using asyncio.run
+CSV created: True
+exit code: 0
